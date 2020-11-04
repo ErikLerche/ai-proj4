@@ -53,28 +53,38 @@ def runDecisionTree(train_x, train_y, validation_x, validation_y, test_x, test_y
     clf.fit(train_x, train_y)
 
     score = clf.score(test_x, test_y)
+    print('Results for Decision Tree')
     print(score) # 0.5373134328358209
+    print('\n')
 
 def runRandomForest(train_x, train_y, validation_x, validation_y, test_x, test_y):
-    clf = RandomForestClassifier(max_depth = 2, random_state = 0)
+    clf = RandomForestClassifier(random_state=0, max_depth=None, max_features=3, criterion='entropy')
     clf.fit(train_x, train_y)
 
-    score = clf.score(test_x, test_y)
-    print(score) # 0.26865671641791045
+    score = clf.score(validation_x, validation_y)
+    score2 = clf.score(test_x, test_y)
+    print('Results for Random Forest')
+    print('validation data', score) # 0.7794117647058824
+    print('test data', score2) # 0.7164179104477612
+    print('\n')
 
 def runLogisticRegression(train_x, train_y, validation_x, validation_y, test_x, test_y):
     clf = LogisticRegression(random_state = 0)
     clf.fit(train_x, train_y)
 
     score = clf.score(test_x, test_y)
+    print('Results for Logistic Regression')
     print(score) # 0.373134328358209
+    print('\n')
 
 def runSVM(train_x, train_y, validation_x, validation_y, test_x, test_y):
     clf = svm.SVC()
     clf.fit(train_x, train_y)
 
     score = clf.score(test_x, test_y)
+    print('Results for SVM')
     print(score) # 0.208955223880597
+    print('\n')
 
 if __name__ == '__main__':
     main()
