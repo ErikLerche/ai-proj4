@@ -21,7 +21,7 @@
 from sklearn.tree import DecisionTreeClassifier     
 from sklearn.ensemble import RandomForestClassifier 
 from sklearn.linear_model import LogisticRegression 
-from sklearn.svm import SVC                         
+from sklearn import svm                        
 from sklearn.linear_model import SGDRegressor       
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import cross_val_score    
@@ -41,9 +41,9 @@ def main():
     leaftesty = leaftest['class']
 
     runDecisionTree(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
-    # runRandomForest()
-    # runLogisticRegression()
-    # runSVM()
+    runRandomForest(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
+    runLogisticRegression(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
+    runSVM(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
     # runSGDRegressor()
     # runRidge()
     # runPrintResults()
@@ -53,6 +53,28 @@ def runDecisionTree(train_x, train_y, validation_x, validation_y, test_x, test_y
     clf.fit(train_x, train_y)
 
     score = clf.score(test_x, test_y)
-    print(score)
+    print(score) # 0.5373134328358209
+
+def runRandomForest(train_x, train_y, validation_x, validation_y, test_x, test_y):
+    clf = RandomForestClassifier(max_depth = 2, random_state = 0)
+    clf.fit(train_x, train_y)
+
+    score = clf.score(test_x, test_y)
+    print(score) # 0.26865671641791045
+
+def runLogisticRegression(train_x, train_y, validation_x, validation_y, test_x, test_y):
+    clf = LogisticRegression(random_state = 0)
+    clf.fit(train_x, train_y)
+
+    score = clf.score(test_x, test_y)
+    print(score) # 0.373134328358209
+
+def runSVM(train_x, train_y, validation_x, validation_y, test_x, test_y):
+    clf = svm.SVC()
+    clf.fit(train_x, train_y)
+
+    score = clf.score(test_x, test_y)
+    print(score) # 0.208955223880597
+
 if __name__ == '__main__':
     main()
