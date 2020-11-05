@@ -43,9 +43,9 @@ def main():
     leaftesty = leaftest['class']
 
     runDecisionTree(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
-    runRandomForest(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
-    runLogisticRegression(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
-    runSVM(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
+    # runRandomForest(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
+    # runLogisticRegression(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
+    # runSVM(leaftrainx, leaftrainy, leafvalx, leafvaly, leaftestx, leaftesty)
 
     mpgtrain = pd.read_csv('auto_mpg/train_data.csv')
     mpgtrainx = mpgtrain.iloc[:, 1:]
@@ -59,17 +59,19 @@ def main():
     mpgtestx = mpgtest.iloc[:, 1:]
     mpgtesty = mpgtest['mpg']
 
-    runSGDRegressor(mpgtrainx, mpgtrainy, mpgvalx, mpgvaly, mpgtestx, mpgtesty)
-    runRidge(mpgtrainx, mpgtrainy, mpgvalx, mpgvaly, mpgtestx, mpgtesty)
+    # runSGDRegressor(mpgtrainx, mpgtrainy, mpgvalx, mpgvaly, mpgtestx, mpgtesty)
+    # runRidge(mpgtrainx, mpgtrainy, mpgvalx, mpgvaly, mpgtestx, mpgtesty)
     # runPrintResults()
 
 def runDecisionTree(train_x, train_y, validation_x, validation_y, test_x, test_y):
-    clf = DecisionTreeClassifier(random_state = 0)
+    clf = DecisionTreeClassifier(random_state = 0, criterion = 'entropy', splitter='random')
     clf.fit(train_x, train_y)
 
-    score = clf.score(test_x, test_y)
+    score = clf.score(validation_x, validation_y)
+    score2 = clf.score(test_x, test_y)
     print('Results for Decision Tree')
-    print(score) # 0.5373134328358209
+    print(score) # 0.7058823529411765
+    print(score2) # 0.5223880597014925
     print('\n')
 
 def runRandomForest(train_x, train_y, validation_x, validation_y, test_x, test_y):
@@ -93,12 +95,14 @@ def runLogisticRegression(train_x, train_y, validation_x, validation_y, test_x, 
     print('\n')
 
 def runSVM(train_x, train_y, validation_x, validation_y, test_x, test_y):
-    clf = svm.SVC()
+    clf = svm.SVC(C = 1000.0, kernel = 'rbf', gamma = 'auto', degree = 3)
     clf.fit(train_x, train_y)
 
-    score = clf.score(test_x, test_y)
+    score = clf.score(validation_x, validation_y)
+    score2 = clf.score(test_x, test_y)
     print('Results for SVM')
-    print(score) # 0.208955223880597
+    print(score) # 0.7647058823529411
+    print(score2) # 0.6417910447761194
     print('\n')
 
 def runSGDRegressor(train_x, train_y, validation_x, validation_y, test_x, test_y):
