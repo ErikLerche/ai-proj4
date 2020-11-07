@@ -73,7 +73,7 @@ def runDecisionTree(train_x, train_y, validation_x, validation_y, test_x, test_y
     print('\n')
 
 def runRandomForest(train_x, train_y, validation_x, validation_y, test_x, test_y):
-    clf = RandomForestClassifier(random_state=0, max_depth=None, max_features=3, criterion='entropy')
+    clf = RandomForestClassifier(random_state=0, max_depth=10, max_features=8, criterion='entropy')
     clf.fit(train_x, train_y)
 
     score = clf.score(validation_x, validation_y)
@@ -102,18 +102,20 @@ def runSVM(train_x, train_y, validation_x, validation_y, test_x, test_y):
     print('\n')
 
 def runSGDRegressor(train_x, train_y, validation_x, validation_y, test_x, test_y):
-    clf = make_pipeline(StandardScaler(), SGDRegressor())
-    clf.fit(train_x, train_y)
+    clf = make_pipeline(StandardScaler(), SGDRegressor(random_state=1, penalty='l2', n_iter_no_change=5, eta0=0.5, power_t=0.5))
+    scaler = StandardScaler()
+    clf.fit(scaler.transform(train_x), scaler.transform(train_y))
 
     score = clf.score(validation_x, validation_y)
     score2 = clf.score(test_x, test_y)
     print('Results for SGD Regressor')
-    print('valdidation data: ', score)
-    print('test data: ', score2)
+    print('valdidation data: ', score) # 0.7624346865676033
+    print('test data: ', score2) # 0.7152749971591288
     print('\n')
 
 def runRidge(train_x, train_y, validation_x, validation_y, test_x, test_y):
-    clf = Ridge()
+    clf = Ridge(random_state=1, solver='cholesky', max_iter=100, normalize=True)
+
     clf.fit(train_x, train_y)
 
     score = clf.score(validation_x, validation_y)
