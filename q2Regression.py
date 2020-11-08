@@ -37,9 +37,11 @@ def runSGDRegressor(train_x, train_y, validation_x, validation_y, test_x, test_y
     mean = mean_squared_error(pred, validation_y, squared=False)
     mean2 = mean_squared_error(pred2, test_y, squared=False)
 
-    expected = test_y.tolist()
-    df = pd.DataFrame(expected, pred2)
-    df.to_excel('sgd_regression.xlsx')
+    # uncomment for excel output
+    # expected = test_y.tolist()
+    # df = pd.DataFrame(expected, pred2)
+    # df.to_excel('sgd_regression.xlsx')
+    
     print('Results for SGD Regressor')
     print('valdidation data: ', mean) # 0.7624346865676033
     print('test data: ', mean2) # 0.7152749971591288
@@ -72,9 +74,14 @@ def runRidge(train_x, train_y, validation_x, validation_y, test_x, test_y):
     mean = mean_squared_error(pred, validation_y, squared=False)
     mean2 = mean_squared_error(pred2, test_y, squared=False)
 
-    expected = test_y.tolist()
-    df = pd.DataFrame(expected, pred2)
-    df.to_excel('ridge_regression.xlsx')
+    # uncomment for excel output
+    # expected = test_y.tolist()
+    # # flatten array
+    # expected = [i for sublist in expected for i in sublist]
+    # pred2 = [i for sublist in pred2 for i in sublist]
+    # df = pd.DataFrame(expected, pred2)
+    # df.to_excel('ridge_regression.xlsx')
+
     print('Results for Ridge Regression')
     print('valdidation data: ', mean)
     print('test data: ', mean2)
