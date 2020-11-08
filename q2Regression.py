@@ -1,12 +1,7 @@
-from sklearn.tree import DecisionTreeClassifier     
-from sklearn.ensemble import RandomForestClassifier 
-from sklearn.linear_model import LogisticRegression 
-from sklearn import svm                        
 from sklearn.linear_model import SGDRegressor   
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import Ridge
-from sklearn.model_selection import cross_val_score    
+from sklearn.linear_model import Ridge  
 import pandas as pd  
 from sklearn.metrics import mean_squared_error
 
